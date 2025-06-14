@@ -4,6 +4,7 @@ const navItems = [
   { name: 'Talent', href: '/talent' },
   { name: 'How It Works', href: '/how-it-works' },
   { name: 'Partners', href: '/partners' },
+  { name: 'Insights', href: '/insights' },
   { name: 'About', href: '/about' },
   { name: 'Contact', href: '/contact' }
 ];
@@ -11,24 +12,21 @@ const navItems = [
 
 <header class="bg-white shadow-sm sticky top-0 z-50">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
+    <div class="flex justify-between items-center h-20">
       <!-- Logo -->
       <div class="flex-shrink-0">
         <a href="/" class="flex items-center">
-          <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-            <span class="text-white font-bold text-lg">M</span>
-          </div>
-          <span class="ml-2 text-xl font-semibold text-gray-900">Maxsys</span>
+          <img src="/logo.png" alt="Maxsys International" class="h-10 w-auto" />
         </a>
       </div>
 
       <!-- Desktop Navigation -->
-      <div class="hidden md:block">
+      <div class="hidden lg:block">
         <div class="ml-10 flex items-baseline space-x-8">
           {navItems.map((item) => (
             <a 
               href={item.href} 
-              class="text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
+              class="text-gray-700 hover:text-primary-600 px-3 py-2 text-lg font-medium transition-colors duration-200"
             >
               {item.name}
             </a>
@@ -36,18 +34,49 @@ const navItems = [
         </div>
       </div>
 
-      <!-- CTA Button -->
-      <div class="hidden md:block">
+      <!-- Login Dropdown & CTA Button -->
+      <div class="hidden lg:flex items-center space-x-4">
+        <!-- Login Dropdown -->
+        <div class="relative">
+          <button 
+            id="login-dropdown-button"
+            class="text-gray-700 hover:text-primary-600 px-3 py-2 text-lg font-medium transition-colors duration-200 flex items-center"
+          >
+            Login
+            <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div 
+            id="login-dropdown-menu"
+            class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50"
+          >
+            <a 
+              href="https://hub.maxsys.org/wp-login.php" 
+              class="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-primary-600 transition-colors duration-200 border-b border-gray-100"
+            >
+              Hub Portal Login
+            </a>
+            <a 
+              href="https://hrm.maxsys.org/login" 
+              class="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-primary-600 transition-colors duration-200"
+            >
+              HRM Portal Login
+            </a>
+          </div>
+        </div>
+        
+        <!-- Donate Button -->
         <a 
           href="/donate" 
-          class="bg-primary-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary-700 transition-colors duration-200"
+          class="bg-primary-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-primary-700 transition-colors duration-200"
         >
           Donate Now
         </a>
       </div>
 
       <!-- Mobile menu button -->
-      <div class="md:hidden">
+      <div class="lg:hidden">
         <button 
           type="button" 
           class="mobile-menu-button bg-gray-100 inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500"
@@ -63,19 +92,36 @@ const navItems = [
     </div>
 
     <!-- Mobile menu -->
-    <div class="mobile-menu hidden md:hidden">
+    <div class="mobile-menu hidden lg:hidden">
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
         {navItems.map((item) => (
           <a 
             href={item.href} 
-            class="text-gray-700 hover:text-primary-600 block px-3 py-2 text-base font-medium"
+            class="text-gray-700 hover:text-primary-600 block px-3 py-2 text-lg font-medium"
           >
             {item.name}
           </a>
         ))}
+        
+        <!-- Mobile Login Links -->
+        <div class="border-t border-gray-200 pt-3 mt-3">
+          <a 
+            href="https://hub.maxsys.org/wp-login.php" 
+            class="text-gray-700 hover:text-primary-600 block px-3 py-2 text-lg font-medium"
+          >
+            Hub Portal Login
+          </a>
+          <a 
+            href="https://hrm.maxsys.org/login" 
+            class="text-gray-700 hover:text-primary-600 block px-3 py-2 text-lg font-medium"
+          >
+            HRM Portal Login
+          </a>
+        </div>
+        
         <a 
           href="/donate" 
-          class="bg-primary-600 text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-primary-700 mt-4"
+          class="bg-primary-600 text-white block px-3 py-2 rounded-md text-lg font-medium hover:bg-primary-700 mt-4"
         >
           Donate Now
         </a>
@@ -86,12 +132,31 @@ const navItems = [
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  // Mobile menu toggle
   const button = document.querySelector('.mobile-menu-button');
   const menu = document.querySelector('.mobile-menu');
   
   if (button && menu) {
     button.addEventListener('click', function() {
       menu.classList.toggle('hidden');
+    });
+  }
+  
+  // Login dropdown toggle
+  const loginButton = document.getElementById('login-dropdown-button');
+  const loginMenu = document.getElementById('login-dropdown-menu');
+  
+  if (loginButton && loginMenu) {
+    loginButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      loginMenu.classList.toggle('hidden');
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!loginButton.contains(e.target) && !loginMenu.contains(e.target)) {
+        loginMenu.classList.add('hidden');
+      }
     });
   }
 });
